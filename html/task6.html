@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Task 6</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <section class="wrapper__task math-task">
+        <a href="../index.html" class="math-task__link">До списку задач</a>
+        <p class="math-task__description">
+          Задача 6. Дано послідовність цін товарів та назв (у окремих масивах). Вивести на екран ті, які може собі
+          дозволити користувач (кількість грошей задається).
+        </p>
+        <script>
+          const buyerMoneyQuantity = parseFloat(prompt("Введіть кількість грошей в наявності"))
+          const productsQuantity = parseInt(prompt("Введіть кількість товарів у магазині"))
+          let productsTitleArray = []
+          let productsPricesArray = []
+          function getGoodsArray(titlesArray, pricesArray) {
+            // let productsTitleArray = []
+            // let productsPricesArray = []
+            for (let product = 1; product <= productsQuantity; product++) {
+              const title = prompt(`Введіть назву товару № ${product}`)
+              const price = parseFloat(prompt(`Введіть ціну для ${title}`))
+              productsTitleArray.push(title)
+              productsPricesArray.push(price)
+            }
+            return [productsTitleArray, productsPricesArray]
+          }
+
+          function getlistProductsByBuyerBudget(titlesArray, pricesArray, buyerBudget) {
+            const sortProductsTitles = [],
+              sortProductsPrices = []
+            for (let i = 0; i < pricesArray.length; i++) {
+              if (pricesArray[i] <= buyerBudget) {
+                sortProductsTitles.push(productsTitleArray[i])
+                sortProductsPrices.push(productsPricesArray[i])
+              }
+            }
+            return [sortProductsTitles, sortProductsPrices]
+          }
+
+          function getStringForOutputIntoHtml(titlesArray, pricesArray) {
+            let tempString = ""
+            for (let i = 0; i < titlesArray.length; i++) {
+              tempString += `Назва: ${titlesArray[i]} --- Ціна: ${pricesArray[i]}<br>`
+            }
+            return tempString
+          }
+          const productArray = getGoodsArray(productsTitleArray, productsPricesArray)
+          const sortProductsArray = getlistProductsByBuyerBudget(
+            productsTitleArray,
+            productsPricesArray,
+            buyerMoneyQuantity
+          )
+
+          document.write(`
+          <p>Бюджент покупця - ${buyerMoneyQuantity}</p>
+          <p>Всі товари, які є в нашому магазині - ${getStringForOutputIntoHtml(...productArray)}</p>
+          <p>Товари, які може собі дозволити покупець - ${getStringForOutputIntoHtml(...sortProductsArray)}</p>
+
+          `)
+        </script>
+      </section>
+    </div>
+  </body>
+</html>

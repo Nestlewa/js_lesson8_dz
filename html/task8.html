@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Task 8</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <section class="wrapper__task math-task">
+        <a href="../index.html" class="math-task__link">До списку задач</a>
+        <p class="math-task__description">
+          Задача 8. Дано одновимірний масив, у якому зберігається певна виграшна сума (елементи заповнюються випадковим
+          чином значеннями від -500 до 500). Надаючи користувачу можливість вибирати номери елементів (поки він не
+          відмовиться). Знаходити сумарний виграш
+        </p>
+        <script>
+          //Початкові дані про мінімальну та максимальну суму виграшу, а також масив для гри
+          const MIN_MIN_SUM = -500
+          const MAX_WIN_SUM = 500
+          const LENGTH_MASSIVE = parseInt(prompt("Введіть кількість елементів масиву", "10"))
+
+          //   let winSumArray = []
+
+          function fillWinningArrayWithRandomNumbers(quantityElements, minSum, maxSum) {
+            let winSumArray = []
+            for (let i = 0; i < quantityElements; i++) {
+              const randomPayment = minSum + Math.floor(Math.random() * (maxSum - minSum - 1))
+              winSumArray.push(randomPayment)
+            }
+            return winSumArray
+          }
+
+          function getUserWinAmount(winArray) {
+            let userAnswer
+            let winSum = 0
+            do {
+              userAnswer = parseInt(prompt(`Є ${LENGTH_MASSIVE} квадратів з призовими сумами. Виберіть номер квадрату`))
+              if (!isNaN(userAnswer)) {
+                winSum += winArray[userAnswer]
+              }
+            } while (!isNaN(userAnswer))
+            return winSum
+          }
+
+          const winningNumbers = fillWinningArrayWithRandomNumbers(LENGTH_MASSIVE, MIN_MIN_SUM, MAX_WIN_SUM)
+          const gameWin = getUserWinAmount(winningNumbers)
+
+          document.write(`
+          <p>Ваш виграш становить ${gameWin}</p>
+          `)
+        </script>
+      </section>
+    </div>
+  </body>
+</html>

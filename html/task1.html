@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Task 1</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <section class="wrapper__task math-task">
+        <a href="../index.html" class="math-task__link">До списку задач</a>
+        <p class="math-task__description">
+          Задача 1. Дано масив, який містить оцінки з К предметів. Знайти середній бал і з’ясувати до якої категорії він
+          відноситься (відмінник, двійочник (має хоча би одну двійку), хорошист (оцінки добре і відмінно), трійочник(є
+          хоча би одна трійка)).
+        </p>
+        <script>
+          function getSubjectsMarksArray(marksNumber) {
+            let marksArray = []
+            for (let i = 0; i < marksNumber; i++) {
+              const studentsMarks = parseInt(prompt(`Введіть оцінку з ${i + 1} го предмету (від 2 до 5)`))
+              marksArray.push(studentsMarks)
+            }
+            return marksArray
+          }
+
+          function getAvarageMark(studentsMarks) {
+            let marksSum = 0
+            for (let j = 0; j < studentsMarks.length; j++) {
+              marksSum += studentsMarks[j]
+            }
+            return marksSum / studentsMarks.length
+          }
+
+          function getMinStudentsGradeLevel(studentsMarks) {
+            let minStudentsMark = studentsMarks[0]
+            for (let i = 1; i < studentsMarks.length; i++) {
+              if (minStudentsMark > studentsMarks[i]) {
+                minStudentsMark = studentsMarks[i]
+              }
+            }
+            return minStudentsMark
+          }
+          const marksNumber = parseInt(prompt("Введіть кількість предметів"))
+          let studentsMarks = getSubjectsMarksArray(marksNumber)
+          let minStudentsLevel = getMinStudentsGradeLevel(studentsMarks)
+          console.log(minStudentsLevel)
+
+          function getStudentsCategory(studentsMarks) {
+            let studentSuccess = ""
+            for (let i = 0; i < studentsMarks.length; i++) {
+              if (minStudentsLevel === 2) {
+                studentSuccess = "Двійочник"
+              } else if (minStudentsLevel === 3) {
+                studentSuccess = "Трійочник"
+              } else if (minStudentsLevel === 4) {
+                studentSuccess = "Хорошист"
+              } else {
+                studentSuccess = "Відмінник"
+              }
+            }
+            return studentSuccess
+          }
+          const studentAvarageMark = getAvarageMark(studentsMarks)
+          const studentSuccess = getStudentsCategory(studentsMarks)
+          document.write(
+            `<p>Ваш середній бал в атестаті - ${studentAvarageMark.toFixed(
+              2
+            )}</p> <p>Ваш статус згідно оцінок - ${studentSuccess}</p>`
+          )
+        </script>
+      </section>
+    </div>
+  </body>
+</html>

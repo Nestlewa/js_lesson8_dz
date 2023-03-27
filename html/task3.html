@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Task 3</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <section class="wrapper__task math-task">
+        <a href="../index.html" class="math-task__link">До списку задач</a>
+        <p class="math-task__description">
+          Задача 3. Дано масив імен учнів. З’ясувати скільки разів зустрічається ім’я «Іван».
+        </p>
+        <script>
+          const quantityOfUserNames = parseInt(prompt("Уточніть кількість імен, які Ви хочете ввести"))
+          const NECESSARY_NAME = "Іван"
+
+          function getUsersNamesList(quantity) {
+            const names = []
+            for (let i = 0; i < quantity; i++) {
+              const userNames = prompt(`Введіть ${i + 1} ім'я українською мовою та з великої літери`)
+              names.push(userNames)
+            }
+            return names
+          }
+
+          function getNecessaryNameQuantity(names, needName) {
+            let nameQuantity = 0
+            for (let i = 0; i < names.length; i++) {
+              if (needName === names[i]) nameQuantity++
+            }
+            return nameQuantity
+          }
+          const userNamesList = getUsersNamesList(quantityOfUserNames)
+          const necessaryNameQuantity = getNecessaryNameQuantity(userNamesList, NECESSARY_NAME)
+          document.write(`<p>Вказане ім'я зустрічається ${necessaryNameQuantity} раз/рази</p>`)
+        </script>
+      </section>
+    </div>
+  </body>
+</html>

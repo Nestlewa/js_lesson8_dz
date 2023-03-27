@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Task 5</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <section class="wrapper__task math-task">
+        <a href="../index.html" class="math-task__link">До списку задач</a>
+        <p class="math-task__description">
+          Задача 5. Дано послідовність оцінок учня. Підрахувати кількість: 1) двійок 2) кількість хороших оцінок (добре,
+          відмінно); 3) кількість оцінок, які нижче середнього.
+        </p>
+        <script>
+          //Питаємо скільки оцінок є у учня
+          const userMarksQuantity = parseInt(prompt("Введіть кількість оцінок учня"))
+
+          //Функція генерації випадкових оцінок учня
+          function getGeneretaRandomMarks(marksQuantity) {
+            const marksArray = []
+            for (let i = 0; i < marksQuantity; i++) {
+              const randomNumber = 2 + Math.floor(Math.random() * 12 - 2 + 1)
+              marksArray.push(randomNumber)
+            }
+            return marksArray
+          }
+          // Знаходимо кількість двійок
+          function getMarksEqualTwo(marks) {
+            let counterTwoMarks = 0
+            for (let i = 0; i < marks.length; i++) {
+              if (marks[i] < 4) {
+                counterTwoMarks++
+              }
+            }
+            return counterTwoMarks
+          }
+
+          //Функція для знаходження кількості хороших оцінок(добре, відмінно)
+          function getGoodMarks(marks) {
+            let counterGoodMarks = 0
+            for (let i = 0; i < marks.length; i++) {
+              if (marks[i] > 7) {
+                counterGoodMarks++
+              }
+            }
+            return counterGoodMarks
+          }
+
+          //Функція для знаходження середньої оцінки
+          function getAvarageMark(marks) {
+            let sum = 0
+            for (let i = 0; i < marks.length; i++) {
+              sum += marks[i]
+            }
+            return Math.round(sum / marks.length)
+          }
+
+          //Функція для знаходження кількості оцінок нижче середньої
+          function getMarksQuantityLessThanAvarage(avarageMark, marks) {
+            let counterLessThanAvarage = 0
+            for (let i = 0; i < marks.length; i++) {
+              if (marks[i] < avarageMark) {
+                counterLessThanAvarage++
+              }
+            }
+            return counterLessThanAvarage
+          }
+          //Оцінки учня у вигляді масиву
+          const studentAssessments = getGeneretaRandomMarks(userMarksQuantity)
+          // Константа з результатом кількості двійок учня
+          const twoMarksQuantity = getMarksEqualTwo(studentAssessments)
+          //Константа з результатом кількості хороших оцінок
+          const goodMarksQuantity = getGoodMarks(studentAssessments)
+          //Константа з результатом середньої оцінки
+          const avarageStudentMark = getAvarageMark(studentAssessments)
+          //Константа з результатом кількості оцінок нижче середньої
+          const lessThanAvarageMarkQuantity = getMarksQuantityLessThanAvarage(avarageStudentMark, studentAssessments)
+          //Вивдення результату
+          document.write(`
+          <p>Кількість двійок - ${twoMarksQuantity}</p>
+          <p>Кількість хороших оцінок - ${goodMarksQuantity}</p>
+          <p>Ваша середня оцінка - ${avarageStudentMark}</p>
+          <p>Кількість оцінок нижче середньої - ${lessThanAvarageMarkQuantity}</p>
+          `)
+        </script>
+      </section>
+    </div>
+  </body>
+</html>

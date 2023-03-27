@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Task 9</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <section class="wrapper__task math-task">
+        <a href="../index.html" class="math-task__link">До списку задач</a>
+        <p class="math-task__description">
+          Задача 9. Морський бій. Користувач вводить кількість клітинок одновимірного масиву та кількість одиночних
+          кораблів. Комп’ютер довільно розміщує ці одиночні кораблі у масиві по один у клітинці (якщо у клітинці 0, то
+          клітинка пуста, якщо 1 – то це означає, що там є корабель. Користувач вводить номер клітинки, куди стріляє.
+          Гра продовжується до тих пір, поки не будуть потоплені усі кораблі.
+        </p>
+        <script>
+          const cellsQuantity = parseInt(prompt("Введіть кількість клітинок ігрового поля"))
+          const singleShipQuantity = parseInt(prompt("Введіть кількість однопалубних кораблів"))
+          const gameBoardArray = new Array(cellsQuantity).fill(0)
+
+          function getPlacesForShipsOnBoard(shipsQuantity, gameArray) {
+            for (let i = 0; i < shipsQuantity; i++) {
+              let randomShipPosition
+              do randomShipPosition = Math.floor(Math.random() * gameArray.length)
+              while (gameArray[randomShipPosition] === 1)
+              gameArray[randomShipPosition] = 1
+            }
+          }
+          const shipsPlaces = getPlacesForShipsOnBoard(singleShipQuantity, gameBoardArray)
+
+          function userShoot(shipsQuantity, gameArray) {
+            let userShootsQuantity = 0,
+              userInfoText = ""
+            do {
+              const userShootCellNumber = parseInt(
+                prompt(`Введіть номер клітинки для пострілу від 1 до ${gameArray.length}`)
+              )
+              if (gameArray[userShootCellNumber] === 1) {
+                gameArray[userShootCellNumber] = 0
+                shipsQuantity--
+                userShootsQuantity++
+                userInfoText += `Вітаємо Ви потопили корабель, який знаходився в клітинці № ${userShootCellNumber}<br>`
+              } else if (isNaN(userShootCellNumber)) {
+                userInfoText += `Ви вийшли з гри, але, нажаль, не потопили ще ${shipsQuantity} кораблів <br>`
+                shipsQuantity = 0
+              } else {
+                userInfoText += `Ви промахнулись!В клітинці № ${userShootCellNumber} корабля не було <br>`
+                userShootsQuantity++
+              }
+            } while (shipsQuantity > 0)
+
+            return [userShootsQuantity, userInfoText]
+          }
+          const resultOfTheGame = userShoot(singleShipQuantity, gameBoardArray)
+
+          document.write(`
+          <p>Кількість клітинок в ігровому полі - ${cellsQuantity}</p>
+          <p>Кількість однопалубних кораблів - ${singleShipQuantity}</p>
+          <p>Кількість пострілів - ${resultOfTheGame[0]}</p>
+          <p>${resultOfTheGame[1]}</p>
+          `)
+        </script>
+      </section>
+    </div>
+  </body>
+</html>
